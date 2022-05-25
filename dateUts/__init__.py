@@ -15,8 +15,8 @@ def sqlToDate(dt:str):
 # > dateToSql(<datetime>)
 # > 'yyyy-MM-dd'
 
-def dateToSql(dt:str):
-    return datetime.strptime(dt,"%Y-%m-%d")
+def dateToSql(dt:date):
+    return datetime.strftime(dt,"%Y-%m-%d")
 
 #========= USAGE ============
 #Ex1:
@@ -29,8 +29,27 @@ def now(fmt=None):
 
 #========= USAGE ============
 #Ex1:
+# > today()  ,  today(fmt='%Y-%m-%d')   ,   today(fmt='sql')
+# > <datetime>, 'yyyy-MM-dd',  'yyyy-MM-dd'
+
+def today(fmt=None,addDays=0):
+    v =  dt.now() 
+    v =  v if not addDays else dateAdd(today(),addDays,'day')
+    return fmtDate(v,fmt)
+
+#========= USAGE ============
+#Ex1:
+# > yesterday()  ,  yesterday(fmt='%Y-%m-%d')   ,   yesterday(fmt='sql')
+# > <datetime>, 'yyyy-MM-dd',  'yyyy-MM-dd'
+
+def yesterday(fmt=None):
+    v = dt.now() - td(1)
+    return fmtDate(v,fmt)
+
+#========= USAGE ============
+#Ex1:
 # > start,end = <date:2022-05-23>,<date:2022-05-24>
-# > dateRange(start,end) ,  dateAdd('2022-05-23',1,'day',fmt='%Y-%m-%d')   ,   dateAdd('2022-05-23',1,'day',fmt='sql')
+# > dateRange(start,end) ,  dateRange('2022-05-23',1,'day',fmt='%Y-%m-%d')   ,   dateRange('2022-05-23',1,'day',fmt='sql')
 # > [<datetime>,<datetime>], ['2022-05-23','2022-05-24'],  ['2022-05-23','2022-05-24']
 
 def dateRange(start:date,end:date,fmt=None):
@@ -54,25 +73,6 @@ def dateAdd(date:date,qtd:int,unit:str="day",fmt=None):
     elif unit == 'year':
         v = date.replace(year = date.year + qtd)
 
-    return fmtDate(v,fmt)
-
-#========= USAGE ============
-#Ex1:
-# > today()  ,  today(fmt='%Y-%m-%d')   ,   today(fmt='sql')
-# > <datetime>, 'yyyy-MM-dd',  'yyyy-MM-dd'
-
-def today(fmt=None,addDays=0):
-    v =  dt.now() 
-    v =  v if not addDays else dateAdd(today(),addDays,'day')
-    return fmtDate(v,fmt)
-
-#========= USAGE ============
-#Ex1:
-# > yesterday()  ,  yesterday(fmt='%Y-%m-%d')   ,   yesterday(fmt='sql')
-# > <datetime>, 'yyyy-MM-dd',  'yyyy-MM-dd'
-
-def yesterday(fmt=None):
-    v = dt.now() - td(1)
     return fmtDate(v,fmt)
 
 #========= USAGE ============ 
@@ -102,7 +102,7 @@ def fmtDate(dt:date,fmt:str):
 
 
 
-a = lastWorkingDate(fmt="%Y-%m-%d")
-rng = dateRange(sqlToDate("2022-05-01"),sqlToDate("2022-05-10"))
-rng = dateRange(sqlToDate("2022-05-10"),sqlToDate("2022-05-01"))
-a=1
+# a = lastWorkingDate(fmt="%Y-%m-%d")
+# rng = dateRange(sqlToDate("2022-05-01"),sqlToDate("2022-05-10"))
+# rng = dateRange(sqlToDate("2022-05-10"),sqlToDate("2022-05-01"))
+# a=1

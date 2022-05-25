@@ -12,3 +12,11 @@ Change Log
 0.0.3 (2022-05-25)
 ------------------
 - Desciprtion changeLog
+
+0.0.4 (2022-05-25)
+------------------
+- Adjustment at sqlToDate function
+
+0.0.5 (2022-05-25)
+------------------
+- Readme details
