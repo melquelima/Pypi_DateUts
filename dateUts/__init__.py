@@ -52,11 +52,17 @@ def yesterday(fmt=None):
 # > dateRange(start,end) ,  dateRange('2022-05-23',1,'day',fmt='%Y-%m-%d')   ,   dateRange('2022-05-23',1,'day',fmt='sql')
 # > [<datetime>,<datetime>], ['2022-05-23','2022-05-24'],  ['2022-05-23','2022-05-24']
 
-def dateRange(start:date,end:date,fmt=None):
+def dateRange(start:date,end:date,fmt=None,filter_lbd:callable=None):
     if start > end:
-        dates = [dateAdd(start,x*-1,fmt=fmt) for x in range(0, (start-end).days + 1)]
+        dates = [dateAdd(start,x*-1) for x in range(0, (start-end).days + 1)]
     else:
-        dates = [dateAdd(start,x,fmt=fmt) for x in range(0, (end-start).days + 1)]
+        dates = [dateAdd(start,x) for x in range(0, (end-start).days + 1)]
+    
+    if filter_lbd:
+        dates = list(filter(filter_lbd,dates))
+    if fmt:
+        dates = [fmtDate(x,fmt) for x in dates]
+    
     return dates
 
 #========= USAGE ============
@@ -99,6 +105,18 @@ def fmtDate(dt:date,fmt:str):
     fmt= fmt if not fmt else ("%Y-%m-%d" if fmt == "sql" else fmt)
     return dt if not fmt else dt.strftime(fmt)
 
+def dateMatch(dt:str,fmt:str):
+    fmt = "%Y-%m-%d" if fmt == "sql" else fmt
+
+    try:
+        dt = datetime.strptime(dt,fmt)
+    except ValueError:
+        return False
+
+    return True
+
+
+Fnc_noWeekends = lambda dt:dt.weekday() not in [5,6]
 
 
 

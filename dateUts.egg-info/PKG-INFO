@@ -1,6 +1,6 @@
-Metadata-Version: 1.1
+Metadata-Version: 2.1
 Name: dateUts
-Version: 0.0.5
+Version: 0.0.9
 Summary: Date package
 Home-page: UNKNOWN
 Author: Melque Lima
@@ -148,6 +148,21 @@ Description: # Date Uts
         '2022-05-20'
         ```
         
+        #### DateMatch
+        ```py
+        from dateUts import dateMatch
+        
+        dt = dateMatch('2022-01-01','sql')
+        print(dt)
+        
+        dt = dateMatch('2022-01-01','%Y-%m-%d')
+        print(dt)
+        ```
+        ```py
+        True
+        True
+        ```
+        
         Change Log
         ==========
         
@@ -170,6 +185,10 @@ Description: # Date Uts
         0.0.5 (2022-05-25)
         ------------------
         - Readme details
+        
+        0.0.9 (2022-08-18)
+        ------------------
+        - DateMatch
 Keywords: dateUts
 Platform: UNKNOWN
 Classifier: Development Status :: 5 - Production/Stable
@@ -177,3 +196,4 @@ Classifier: Intended Audience :: Education
 Classifier: Operating System :: Microsoft :: Windows :: Windows 10
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown

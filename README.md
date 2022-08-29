@@ -139,3 +139,18 @@ print(dt)
 '2022-05-24'
 '2022-05-20'
 ```
+
+#### DateMatch
+```py
+from dateUts import dateMatch
+
+dt = dateMatch('2022-01-01','sql')
+print(dt)
+
+dt = dateMatch('2022-01-01','%Y-%m-%d')
+print(dt)
+```
+```py
+True
+True
+```

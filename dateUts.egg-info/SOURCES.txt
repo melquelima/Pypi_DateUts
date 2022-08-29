@@ -1,7 +1,7 @@
 CHANGELOG.txt
 LICENCE.txt
 MANIFEST.in
-README.txt
+README.md
 commands.txt
 setup.py
 dateUts/__init__.py
