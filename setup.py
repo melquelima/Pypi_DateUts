@@ -9,9 +9,9 @@ classifiers = [
 ]
  
 setup(
-  name='SqlUts',
-  version='0.0.4',
-  description='Sql Uts package',
+  name='dateUts',
+  version='0.0.9',
+  description='Date package',
   long_description=open('README.md').read() + '\n\n' + open('CHANGELOG.txt').read(),
   long_description_content_type='text/markdown',
   url='',  

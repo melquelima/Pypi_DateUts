@@ -15,4 +15,12 @@ Change Log
 
 0.0.4 (2022-07-20)
 ------------------
-- ExecuteMany
+- Adjustment at sqlToDate function
+
+0.0.5 (2022-05-25)
+------------------
+- Readme details
+
+0.0.9 (2022-08-18)
+------------------
+- DateMatch
