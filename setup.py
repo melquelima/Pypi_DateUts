@@ -9,16 +9,17 @@ classifiers = [
 ]
  
 setup(
-  name='dateUts',
-  version='0.0.5',
-  description='Date package',
-  long_description=open('README.txt').read() + '\n\n' + open('CHANGELOG.txt').read(),
+  name='SqlUts',
+  version='0.0.4',
+  description='Sql Uts package',
+  long_description=open('README.md').read() + '\n\n' + open('CHANGELOG.txt').read(),
+  long_description_content_type='text/markdown',
   url='',  
   author='Melque Lima',
   author_email='melque_ex@yahoo.com.br',
   license='MIT', 
   classifiers=classifiers,
-  keywords='dateUts', 
+  keywords='SqlUts', 
   packages=find_packages(),
-  install_requires=[''] 
+  install_requires=['SQLAlchemy==1.4.0','SQLAlchemy-Utils==0.38.2'] 
 )
