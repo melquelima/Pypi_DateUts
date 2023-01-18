@@ -46,6 +46,10 @@ def yesterday(fmt=None):
     v = dt.now() - td(1)
     return fmtDate(v,fmt)
 
+def tomorrow(fmt=None):
+    v = dt.now() + td(1)
+    return fmtDate(v,fmt)
+
 #========= USAGE ============
 #Ex1:
 # > start,end = <date:2022-05-23>,<date:2022-05-24>
@@ -78,6 +82,12 @@ def dateAdd(date:date,qtd:int,unit:str="day",fmt=None):
         v = date + td(qtd) if qtd > 0 else date - td(abs(qtd))
     elif unit == 'year':
         v = date.replace(year = date.year + qtd)
+    elif unit == 'hours':
+        v = date + td(hours=qtd)
+    elif unit == 'minutes':
+        v = date + td(minutes=qtd)
+    elif unit == 'seconds':
+        v = date + td(seconds=qtd)
 
     return fmtDate(v,fmt)
 
@@ -95,6 +105,15 @@ def lastWorkingDate(ref:date=None,fmt=None): #IGNORE SATURDAY AND SUNDAY
     if y.weekday() in [5,6]:
         return lastWorkingDate(y,fmt)
     return fmtDate(y,fmt)
+
+
+
+def nextWorkingDate(ref:date=None,fmt=None): #IGNORE SATURDAY AND SUNDAY
+    t = tomorrow() if not ref else dateAdd(ref,1,'day')
+    if t.weekday() in [5,6]:
+        return nextWorkingDate(t,fmt)
+    return fmtDate(t,fmt)
+
 
 #========= USAGE ============
 #Ex1:
@@ -120,7 +139,7 @@ Fnc_noWeekends = lambda dt:dt.weekday() not in [5,6]
 
 
 
-# a = lastWorkingDate(fmt="%Y-%m-%d")
+#a = lastWorkingDate(fmt="%Y-%m-%d")
 # rng = dateRange(sqlToDate("2022-05-01"),sqlToDate("2022-05-10"))
 # rng = dateRange(sqlToDate("2022-05-10"),sqlToDate("2022-05-01"))
 # a=1

@@ -140,6 +140,24 @@ print(dt)
 '2022-05-20'
 ```
 
+#### nextWorkingDate
+```py
+from dateUts import nextWorkingDate
+
+#Assuming today as '2023-01-20'
+dt = nextWorkingDate(fmt='sql')
+print(dt)
+
+#Assuming today as '2023-01-19'
+dt = nextWorkingDate(fmt='sql')
+print(dt)
+```
+```py
+'2023-01-23'
+'2023-01-20'
+```
+
+
 #### DateMatch
 ```py
 from dateUts import dateMatch
