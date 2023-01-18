@@ -10,7 +10,7 @@ classifiers = [
  
 setup(
   name='dateUts',
-  version='0.1.0',
+  version='0.1.1',
   description='Date package',
   long_description=open('README.md').read() + '\n\n' + open('CHANGELOG.txt').read(),
   long_description_content_type='text/markdown',
@@ -19,7 +19,7 @@ setup(
   author_email='melque_ex@yahoo.com.br',
   license='MIT', 
   classifiers=classifiers,
-  keywords='SqlUts', 
+  keywords='DateUts', 
   packages=find_packages(),
-  install_requires=['SQLAlchemy==1.4.0','SQLAlchemy-Utils==0.38.2'] 
+  install_requires=[] 
 )
