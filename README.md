@@ -1,5 +1,4 @@
-# Date Uts
-##### _Better way to handle dates_
+# Sql Uts
 #
 ### Installation
 

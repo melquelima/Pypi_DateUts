@@ -19,7 +19,7 @@ setup(
   author_email='melque_ex@yahoo.com.br',
   license='MIT', 
   classifiers=classifiers,
-  keywords='dateUts', 
+  keywords='SqlUts', 
   packages=find_packages(),
-  install_requires=[''] 
+  install_requires=['SQLAlchemy==1.4.0','SQLAlchemy-Utils==0.38.2'] 
 )
