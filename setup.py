@@ -10,7 +10,7 @@ classifiers = [
  
 setup(
   name='dateUts',
-  version='0.1.1',
+  version='0.1.3',
   description='Date package',
   long_description=open('README.md').read() + '\n\n' + open('CHANGELOG.txt').read(),
   long_description_content_type='text/markdown',
@@ -19,7 +19,7 @@ setup(
   author_email='melque_ex@yahoo.com.br',
   license='MIT', 
   classifiers=classifiers,
-  keywords='DateUts', 
+  keywords='dateUts', 
   packages=find_packages(),
   install_requires=[] 
 )
