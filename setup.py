@@ -10,7 +10,7 @@ classifiers = [
  
 setup(
   name='dateUts',
-  version='0.1.3',
+  version='0.1.5',
   description='Date package',
   long_description=open('README.md').read() + '\n\n' + open('CHANGELOG.txt').read(),
   long_description_content_type='text/markdown',

@@ -33,3 +33,7 @@ Change Log
 ------------------
 - Next Working Day
 
+0.1.2 (2024-04-20)
+------------------
+- is_weeekend
+

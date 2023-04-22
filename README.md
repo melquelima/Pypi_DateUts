@@ -171,3 +171,21 @@ print(dt)
 True
 True
 ```
+
+#### IsWeekend
+```py
+#Preteend today is sunday
+from dateUts import today,tomorrow
+
+dt = today()
+print(dt.is_weekend())
+
+dt = tomorrow()
+print(dt.is_weekend())
+
+```
+```py
+True
+False
+```
+

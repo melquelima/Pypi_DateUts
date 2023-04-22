@@ -1,5 +1,20 @@
 from datetime import date, datetime as dt, timedelta as td
-from datetime import datetime
+
+
+class DateUts():
+    date = None
+
+    def __init__(self,date):
+        self.date = date
+
+    def is_weekend(self):
+        return self.date.weekday() in [5, 6]
+
+    def __repr__(self):
+        return f"<DateUts {self.date.strftime('%Y-%m-%d %H:%M:%S')}>"
+
+
+# output: True (2023-04-22 is a Saturday)
 
 
 #========= USAGE ============
@@ -8,7 +23,7 @@ from datetime import datetime
 # > <datetime>
 
 def sqlToDate(dt:str):
-    return datetime.strptime(dt,"%Y-%m-%d")
+    return DateUts(dt.strptime(dt,"%Y-%m-%d"))
 
 #========= USAGE ============
 #Ex1:
@@ -16,7 +31,7 @@ def sqlToDate(dt:str):
 # > 'yyyy-MM-dd'
 
 def dateToSql(dt:date):
-    return datetime.strftime(dt,"%Y-%m-%d")
+    return DateUts(dt.strftime(dt,"%Y-%m-%d"))
 
 #========= USAGE ============
 #Ex1:
@@ -122,7 +137,7 @@ def nextWorkingDate(ref:date=None,fmt=None): #IGNORE SATURDAY AND SUNDAY
 
 def fmtDate(dt:date,fmt:str):
     fmt= fmt if not fmt else ("%Y-%m-%d" if fmt == "sql" else fmt)
-    return dt if not fmt else dt.strftime(fmt)
+    return DateUts(dt if not fmt else dt.strftime(fmt))
 
 def dateMatch(dt:str,fmt:str):
     fmt = "%Y-%m-%d" if fmt == "sql" else fmt
@@ -137,9 +152,9 @@ def dateMatch(dt:str,fmt:str):
 
 Fnc_noWeekends = lambda dt:dt.weekday() not in [5,6]
 
-
-
-#a = lastWorkingDate(fmt="%Y-%m-%d")
+# a = DateUts(dt.now())
+# print(a)
+# a = lastWorkingDate(fmt="%Y-%m-%d")
 # rng = dateRange(sqlToDate("2022-05-01"),sqlToDate("2022-05-10"))
 # rng = dateRange(sqlToDate("2022-05-10"),sqlToDate("2022-05-01"))
 # a=1

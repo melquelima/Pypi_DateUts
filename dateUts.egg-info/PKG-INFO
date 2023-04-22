@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: dateUts
-Version: 0.1.3
+Version: 0.1.5
 Summary: Date package
 Home-page: UNKNOWN
 Author: Melque Lima
@@ -180,6 +180,25 @@ Description: # Sql Uts
         True
         ```
         
+        #### IsWeekend
+        ```py
+        #Preteend today is sunday
+        from dateUts import today,tomorrow
+        
+        dt = today()
+        print(dt.is_weekend())
+        
+        dt = tomorrow()
+        print(dt.is_weekend())
+        
+        ```
+        ```py
+        True
+        False
+        ```
+        
+        
+        
         Change Log
         ==========
         
@@ -214,6 +233,10 @@ Description: # Sql Uts
         0.1.1 (2023-01-18)
         ------------------
         - Next Working Day
+        
+        0.1.2 (2024-04-20)
+        ------------------
+        - is_weeekend
         
         
 Keywords: dateUts
