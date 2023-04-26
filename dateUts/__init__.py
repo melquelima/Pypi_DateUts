@@ -9,6 +9,9 @@ class DateUts():
 
     def is_weekend(self):
         return self.date.weekday() in [5, 6]
+    
+    def weekday(self):
+        self.date.weekday()
 
     def __repr__(self):
         return f"<DateUts {self.date.strftime('%Y-%m-%d %H:%M:%S')}>"
@@ -48,7 +51,7 @@ def now(fmt=None):
 # > <datetime>, 'yyyy-MM-dd',  'yyyy-MM-dd'
 
 def today(fmt=None,addDays=0):
-    v =  dt.now() 
+    v =  dt.now().date()
     v =  v if not addDays else dateAdd(today(),addDays,'day')
     return fmtDate(v,fmt)
 
@@ -58,11 +61,11 @@ def today(fmt=None,addDays=0):
 # > <datetime>, 'yyyy-MM-dd',  'yyyy-MM-dd'
 
 def yesterday(fmt=None):
-    v = dt.now() - td(1)
+    v = today().date - td(1)
     return fmtDate(v,fmt)
 
 def tomorrow(fmt=None):
-    v = dt.now() + td(1)
+    v = today().date + td(1)
     return fmtDate(v,fmt)
 
 #========= USAGE ============
@@ -93,6 +96,7 @@ def dateRange(start:date,end:date,fmt=None,filter_lbd:callable=None):
 # > <datetime>, '2022-05-22',  '2022-05-22'
 
 def dateAdd(date:date,qtd:int,unit:str="day",fmt=None):
+    date = date.date if isinstance(date,DateUts) else date
     if unit == 'day':
         v = date + td(qtd) if qtd > 0 else date - td(abs(qtd))
     elif unit == 'year':
@@ -137,7 +141,9 @@ def nextWorkingDate(ref:date=None,fmt=None): #IGNORE SATURDAY AND SUNDAY
 
 def fmtDate(dt:date,fmt:str):
     fmt= fmt if not fmt else ("%Y-%m-%d" if fmt == "sql" else fmt)
-    return DateUts(dt if not fmt else dt.strftime(fmt))
+    dt = dt.date if isinstance(dt,DateUts) else dt
+
+    return DateUts(dt) if not fmt else dt.strftime(fmt)
 
 def dateMatch(dt:str,fmt:str):
     fmt = "%Y-%m-%d" if fmt == "sql" else fmt
@@ -149,6 +155,7 @@ def dateMatch(dt:str,fmt:str):
 
     return True
 
+lastWorkingDate(today())
 
 Fnc_noWeekends = lambda dt:dt.weekday() not in [5,6]
 
