@@ -1,4 +1,5 @@
 from datetime import date, datetime as dt, timedelta as td
+from dateutil.relativedelta import relativedelta
 
 
 class DateUts():
@@ -25,8 +26,8 @@ class DateUts():
 # > sqlToDate('yyyy-MM-dd')
 # > <datetime>
 
-def sqlToDate(dt:str):
-    return DateUts(dt.strptime(dt,"%Y-%m-%d"))
+def sqlToDate(date_str:str):
+    return DateUts(dt.strptime(date_str,"%Y-%m-%d"))
 
 #========= USAGE ============
 #Ex1:
@@ -101,12 +102,16 @@ def dateAdd(date:date,qtd:int,unit:str="day",fmt=None):
         v = date + td(qtd) if qtd > 0 else date - td(abs(qtd))
     elif unit == 'year':
         v = date.replace(year = date.year + qtd)
-    elif unit == 'hours':
+    elif unit == 'hour':
         v = date + td(hours=qtd)
-    elif unit == 'minutes':
+    elif unit == 'minute':
         v = date + td(minutes=qtd)
-    elif unit == 'seconds':
+    elif unit == 'second':
         v = date + td(seconds=qtd)
+    elif unit == 'month':
+        v = date + relativedelta(months=qtd)
+
+
 
     return fmtDate(v,fmt)
 
@@ -155,7 +160,19 @@ def dateMatch(dt:str,fmt:str):
 
     return True
 
-lastWorkingDate(today())
+def firstDay(sql_dte:str|date,fmt:str=None):
+    dte = sql_dte if isinstance(sql_dte,date) or isinstance(sql_dte,DateUts) else sqlToDate(sql_dte)
+    dte = fmtDate(dte,"%Y-%m-01")
+    firstDay = sqlToDate(dte)
+    return fmtDate(firstDay,fmt)
+
+def lastDay(sql_dte:str|date,fmt:str=None):
+    dte = sql_dte if isinstance(sql_dte,date) or isinstance(sql_dte,DateUts) else sqlToDate(sql_dte)
+    dte = sqlToDate(dateAdd(dte,1,"month",fmt="%Y-%m-01"))
+    dte = dateAdd(dte,-1,"day")
+    return fmtDate(dte,fmt)
+
+
 
 Fnc_noWeekends = lambda dt:dt.weekday() not in [5,6]
 
