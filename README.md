@@ -189,3 +189,21 @@ True
 False
 ```
 
+#### Interval
+```py
+#Preteend today is sunday
+from dateUts import today,tomorrow
+
+
+print(interval(today(),tomorrow().date,in_days=True))
+print(interval(today(),tomorrow().date,in_minutes=True))
+print(interval(today(),tomorrow().date,in_seconds=True))
+
+
+```
+```py
+1.0
+1440.0
+86400.0
+```
+

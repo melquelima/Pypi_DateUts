@@ -1,4 +1,4 @@
-from datetime import date, datetime as dt, timedelta as td
+from datetime import date, datetime, timedelta as td
 from dateutil.relativedelta import relativedelta
 
 
@@ -12,7 +12,7 @@ class DateUts():
         return self.date.weekday() in [5, 6]
     
     def weekday(self):
-        self.date.weekday()
+        return self.date.weekday()
 
     def __repr__(self):
         return f"<DateUts {self.date.strftime('%Y-%m-%d %H:%M:%S')}>"
@@ -27,7 +27,7 @@ class DateUts():
 # > <datetime>
 
 def sqlToDate(date_str:str):
-    return DateUts(dt.strptime(date_str,"%Y-%m-%d"))
+    return DateUts(datetime.strptime(date_str,"%Y-%m-%d"))
 
 #========= USAGE ============
 #Ex1:
@@ -43,7 +43,7 @@ def dateToSql(dt:date):
 # > <datetime>, 'yyyy-MM-dd',  'yyyy-MM-dd'
 
 def now(fmt=None):
-    v =  dt.now()
+    v =  datetime.now()
     return fmtDate(v,fmt)
 
 #========= USAGE ============
@@ -52,7 +52,7 @@ def now(fmt=None):
 # > <datetime>, 'yyyy-MM-dd',  'yyyy-MM-dd'
 
 def today(fmt=None,addDays=0):
-    v =  dt.now().date()
+    v =  datetime.now().date()
     v =  v if not addDays else dateAdd(today(),addDays,'day')
     return fmtDate(v,fmt)
 
@@ -76,6 +76,9 @@ def tomorrow(fmt=None):
 # > [<datetime>,<datetime>], ['2022-05-23','2022-05-24'],  ['2022-05-23','2022-05-24']
 
 def dateRange(start:date,end:date,fmt=None,filter_lbd:callable=None):
+    start = start.date if isinstance(start,DateUts) else start
+    end   = end.date if isinstance(end,DateUts) else end
+
     if start > end:
         dates = [dateAdd(start,x*-1) for x in range(0, (start-end).days + 1)]
     else:
@@ -154,28 +157,50 @@ def dateMatch(dt:str,fmt:str):
     fmt = "%Y-%m-%d" if fmt == "sql" else fmt
 
     try:
-        dt = datetime.strptime(dt,fmt)
+        datetime.strptime(dt,fmt)
     except ValueError:
         return False
 
-    return True
+    return True 
 
-def firstDay(sql_dte:str|date,fmt:str=None):
+def firstDay(sql_dte:date,fmt:str=None):
     dte = sql_dte if isinstance(sql_dte,date) or isinstance(sql_dte,DateUts) else sqlToDate(sql_dte)
     dte = fmtDate(dte,"%Y-%m-01")
     firstDay = sqlToDate(dte)
     return fmtDate(firstDay,fmt)
 
-def lastDay(sql_dte:str|date,fmt:str=None):
+def lastDay(sql_dte:date,fmt:str=None):
     dte = sql_dte if isinstance(sql_dte,date) or isinstance(sql_dte,DateUts) else sqlToDate(sql_dte)
     dte = sqlToDate(dateAdd(dte,1,"month",fmt="%Y-%m-01"))
     dte = dateAdd(dte,-1,"day")
     return fmtDate(dte,fmt)
 
+def interval(dte_start:date,dte_end:date,in_years=False,in_days=False,in_hours=False,in_minutes=False,in_seconds=False,in_microseconds=False):
+    date_s = dte_start.date if isinstance(dte_start,DateUts) else dte_start
+    date_e = dte_end.date if isinstance(dte_end,DateUts) else dte_end
+    duration = date_e - date_s
+    duration_in_s = duration.total_seconds()
 
+    if in_years: return divmod(duration_in_s, 31536000)[0]
+    if in_days: return divmod(duration_in_s, 86400)[0]
+    if in_hours: return divmod(duration_in_s, 3600)[0]
+    if in_minutes: return divmod(duration_in_s, 60)[0]
+    if in_seconds: return duration_in_s
+    if in_microseconds: return duration.microseconds
+
+    return divmod(duration_in_s, 86400)[0]
+    
+
+    
 
 Fnc_noWeekends = lambda dt:dt.weekday() not in [5,6]
 
+
+#print(interval(today(),tomorrow().date,in_seconds=True))
+
+#a = fmtDate("202306","%Y%m")
+#a = dateRange(firstDay(today()).date,lastDay(today()).date,filter_lbd = Fnc_noWeekends)
+#a[0].weekday()
 # a = DateUts(dt.now())
 # print(a)
 # a = lastWorkingDate(fmt="%Y-%m-%d")

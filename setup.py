@@ -10,7 +10,7 @@ classifiers = [
  
 setup(
   name='dateUts',
-  version='0.1.8',
+  version='0.2.3',
   description='Date package',
   long_description=open('README.md').read() + '\n\n' + open('CHANGELOG.txt').read(),
   long_description_content_type='text/markdown',
@@ -21,5 +21,5 @@ setup(
   classifiers=classifiers,
   keywords='dateUts', 
   packages=find_packages(),
-  install_requires=[] 
+  install_requires=["python-dateutil==2.8.2"] 
 )

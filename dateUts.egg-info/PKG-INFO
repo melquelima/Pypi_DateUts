@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: dateUts
-Version: 0.1.8
+Version: 0.2.3
 Summary: Date package
 Home-page: 
 Author: Melque Lima
@@ -206,6 +206,24 @@ True
 False
 ```
 
+#### Interval
+```py
+#Preteend today is sunday
+from dateUts import today,tomorrow
+
+
+print(interval(today(),tomorrow().date,in_days=True))
+print(interval(today(),tomorrow().date,in_minutes=True))
+print(interval(today(),tomorrow().date,in_seconds=True))
+
+
+```
+```py
+1.0
+1440.0
+86400.0
+```
+
 
 
 Change Log
@@ -250,3 +268,7 @@ Change Log
 0.1.6 (2023-04-26)
 ------------------
 - fmt bug date adjust
+
+0.2.3 (2023-07-11)
+------------------
+- interval
