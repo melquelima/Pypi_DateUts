@@ -148,13 +148,29 @@ def nextWorkingDate(ref:date=None,fmt=None): #IGNORE SATURDAY AND SUNDAY
 # > <datetime>, 'yyyy-MM-dd',  'yyyy-MM-dd'
 
 def fmtDate(dt:date,fmt:str):
-    fmt= fmt if not fmt else ("%Y-%m-%d" if fmt == "sql" else fmt)
+    # fmt= fmt if not fmt else ("%Y-%m-%d" if fmt == "sql" else fmt)
+    fmt= fmt if not fmt else getFmt(fmt)
     dt = dt.date if isinstance(dt,DateUts) else dt
 
     return DateUts(dt) if not fmt else dt.strftime(fmt)
 
+def getFmt(fmt:str):
+    fmts = {
+        "sql":"%Y-%m-%d",
+        "sql+hour":"%Y-%m-%d %H:%M:%S",
+        "sql+Thour":"%Y-%m-%dT%H:%M:%S",
+        "brz":"%d/%m/%Y",
+        "brz+hour":"%d/%m/%Y %H:%M:%S",
+        "brz+Thour":"%d/%m/%YT%H:%M:%S",
+        "brz":"%M/%d/%Y",
+        "brz+hour":"%M/%d/%Y %H:%M:%S",
+        "brz+Thour":"%M/%d/%YT%H:%M:%S"
+    }
+    return fmts[fmt] if fmt in fmts else fmt
+
 def dateMatch(dt:str,fmt:str):
-    fmt = "%Y-%m-%d" if fmt == "sql" else fmt
+    # fmt = "%Y-%m-%d" if fmt == "sql" else fmt
+    fmt = getFmt(fmt)
 
     try:
         datetime.strptime(dt,fmt)

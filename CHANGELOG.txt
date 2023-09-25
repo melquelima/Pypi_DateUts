@@ -44,3 +44,7 @@ Change Log
 0.2.3 (2023-07-11)
 ------------------
 - interval
+
+0.2.4 (2023-09-25)
+------------------
+- different formats outputs
