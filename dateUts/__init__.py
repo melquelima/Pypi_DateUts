@@ -1,6 +1,7 @@
 from datetime import date, datetime, timedelta as td
 from dateutil.relativedelta import relativedelta
 
+version = '0.2.8'
 
 class DateUts():
     date = None
@@ -135,10 +136,12 @@ def lastWorkingDate(ref:date=None,fmt=None): #IGNORE SATURDAY AND SUNDAY
 
 
 
-def nextWorkingDate(ref:date=None,fmt=None): #IGNORE SATURDAY AND SUNDAY
+def nextWorkingDate(ref:date=None,fmt=None,allow_saturday=False,allow_sunday=False): #IGNORE SATURDAY AND SUNDAY
     t = tomorrow() if not ref else dateAdd(ref,1,'day')
-    if t.weekday() in [5,6]:
-        return nextWorkingDate(t,fmt)
+    to_ignore = [y for x,y in zip([allow_saturday,allow_sunday],[5,6]) if not x]
+
+    if t.weekday() in to_ignore:
+        return nextWorkingDate(t,fmt,allow_saturday,allow_sunday)
     return fmtDate(t,fmt)
 
 
@@ -157,14 +160,14 @@ def fmtDate(dt:date,fmt:str):
 def getFmt(fmt:str):
     fmts = {
         "sql":"%Y-%m-%d",
-        "sql+hour":"%Y-%m-%d %H:%M:%S",
-        "sql+Thour":"%Y-%m-%dT%H:%M:%S",
+        "sql+hr":"%Y-%m-%d %H:%M:%S",
+        "sql+Thr":"%Y-%m-%dT%H:%M:%S",
         "brz":"%d/%m/%Y",
-        "brz+hour":"%d/%m/%Y %H:%M:%S",
-        "brz+Thour":"%d/%m/%YT%H:%M:%S",
-        "brz":"%M/%d/%Y",
-        "brz+hour":"%M/%d/%Y %H:%M:%S",
-        "brz+Thour":"%M/%d/%YT%H:%M:%S"
+        "brz+hr":"%d/%m/%Y %H:%M:%S",
+        "brz+Thr":"%d/%m/%YT%H:%M:%S",
+        "usa":"%m/%d/%Y",
+        "usa+hr":"%m/%d/%Y %H:%M:%S",
+        "usa+Thr":"%m/%d/%YT%H:%M:%S"
     }
     return fmts[fmt] if fmt in fmts else fmt
 
@@ -213,7 +216,7 @@ Fnc_noWeekends = lambda dt:dt.weekday() not in [5,6]
 
 
 #print(interval(today(),tomorrow().date,in_seconds=True))
-
+#a = nextWorkingDate()
 #a = fmtDate("202306","%Y%m")
 #a = dateRange(firstDay(today()).date,lastDay(today()).date,filter_lbd = Fnc_noWeekends)
 #a[0].weekday()

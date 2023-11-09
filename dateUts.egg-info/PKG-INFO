@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: dateUts
-Version: 0.2.3
+Version: 0.2.8
 Summary: Date package
 Home-page: 
 Author: Melque Lima
@@ -14,6 +14,7 @@ Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3
 Description-Content-Type: text/markdown
 License-File: LICENCE.txt
+Requires-Dist: python-dateutil==2.8.2
 
 # Sql Uts
 #
@@ -272,3 +273,11 @@ Change Log
 0.2.3 (2023-07-11)
 ------------------
 - interval
+
+0.2.4 (2023-09-25)
+------------------
+- different formats outputs
+
+0.2.5 (2023-09-25)
+------------------
+- fix getFormat
